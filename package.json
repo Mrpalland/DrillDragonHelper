@@ -1,0 +1,20 @@
+{
+  "name": "realistic-treatment-enacted-311ea",
+  "productName": "realistic-treatment-enacted-311ea",
+  "description": "My Electron application description",
+  "keywords": [],
+  "main": "./main.js",
+  "version": "1.0.0",
+  "author": "Mrpalland",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "three": "^0.165.0",
+    "three-stdlib": "^2.30.3",
+    "three.js": "0.77.1"
+  },
+  "devDependencies": {
+    "electron": "30.0.2"
+  }
+}
