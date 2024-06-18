@@ -1,74 +1,137 @@
-// Modules to control application life and create native browser window
+// ----------------------------
+// Made By Evan Nave 2024
+// Concept and designs by Floombo
+// ---
+// Main Drilly logic stored in renderer.js
+// ----------------------------
 const { app, Tray, Menu, BrowserWindow, ipcMain, screen, nativeImage } = require('electron')
 const path = require('node:path')
 
 let tray;
+let mainWindow;
+let defaultSize;
+let defaultY;
 
-function createWindow () {
+function createWindow() {
   const primaryDisplay = screen.getPrimaryDisplay()
   const { width, height } = primaryDisplay.workAreaSize
 
-  var h = 500;
-  var w = 500;
+  defaultSize = Math.floor(height / 6);
+  const w = defaultSize;
+  defaultY = height - defaultSize;
 
-  const startYPos = height - h;
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: w,
-    height: h,
-    x:5,
-    y:startYPos,
+    height: defaultSize,
+    x: 5,
+    y: defaultY,
     transparent: true,
     frame: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true, // enable node integration
-      contextIsolation: false // disable context isolation
+      nodeIntegration: true,
+      contextIsolation: false
     }
   })
-  mainWindow.setAlwaysOnTop(true, 'screen')
-  //mainWindow.setResizable(false);
 
-  mainWindow.loadFile('index.html')
+  mainWindow.setAlwaysOnTop(true, 'screen');
 
-  mainWindow.on('resize', function () {
-    var size   = mainWindow.getSize();
-    var width  = size[0];
-    var height = size[1];
-    console.log("width: " + width);
-    console.log("height: " + height);
+  mainWindow.loadFile('index.html');
+
+  mainWindow.on('resize', () => {
+    //const [width, height] = mainWindow.getSize();
+    //console.log(`Window resized to: ${width}x${height}`);
   });
 
   mainWindow.on('move', () => {
-    console.log('The window has been moved.');
-    const [x, y] = mainWindow.getPosition();
-    //console.log(`New position: ${x}, ${y}`);
+    //const [x, y] = mainWindow.getPosition();
+    //console.log(`Window moved to: ${x}, ${y}`);
   });
 
-  ipcMain.handle('get-displays', () => {
-    return screen.getAllDisplays()
-  })}
-  
+  ipcMain.handle('get-displays', () => screen.getAllDisplays());
+}
 
 app.whenReady().then(() => {
-  createWindow()
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
+  createWindow();
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
 
   const icon = nativeImage.createFromPath("./assets/icon.png");
   tray = new Tray(icon);
 
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Item1', type: 'radio' },
-    { label: 'Item2', type: 'radio' },
-    { label: 'Item3', type: 'radio', checked: true },
-    { label: 'Item4', type: 'radio' }
+    {
+      label: 'Open Control Panel',
+      type: 'normal',
+      click: () => {
+        console.log('Opening application...');
+        // -- Not currently implemented. --
+        // let win = new BrowserWindow({ width: 800, height: 600 });
+        // win.loadURL('controlpanel.html');
+      }
+    },
+    {
+      label: 'Reset Helper Position',
+      type: 'normal',
+      click: () => {
+        console.log('Window Reset');
+        mainWindow.setPosition(5,defaultY);
+        mainWindow.setBounds({width: defaultSize, height: defaultSize})
+      }
+    },
+    { type: 'separator' },
+    {
+      label: 'Enable Dark Mode',
+      type: 'checkbox',
+      checked: false,
+      click: (menuItem) => {
+        mainWindow.webContents.send('toggle-dark-mode', menuItem.checked);
+        console.log(menuItem.checked ? 'Dark mode enabled' : 'Dark mode disabled');
+      }
+    },
+    {
+      label: 'Quick Options',
+      submenu: [
+        {
+          label: 'Mute',
+          type: 'checkbox',
+          click: (menuItem) => {
+            console.log(menuItem.checked ? 'Mute Not Yet Implemented' : 'UnMute Not Yet Implemented');
+          }
+        },
+        {
+          label: 'Push Notifications',
+          type: 'checkbox',
+          click: (menuItem) => {
+            console.log(menuItem.checked ? 'Push notifications enabled' : 'Push notifications disabled');
+          }
+        },
+        {
+          label: 'Launch on Startup',
+          type: 'checkbox',
+          click: (menuItem) => {
+            console.log(menuItem.checked ? 'Launch on Startup enabled' : 'Launch on Startup disabled');
+          }
+        }
+      ]
+    },
+    {
+      label: 'Exit',
+      type: 'normal',
+      click: () => app.quit()
+    }
   ]);
 
   tray.setToolTip('Drill Dragon Helper');
   tray.setContextMenu(contextMenu);
-})
+});
 
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit()
-})
+app.on('before-quit', () => {
+  if (tray) tray.destroy();
+});
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit();
+});
