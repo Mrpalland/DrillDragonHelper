@@ -134,21 +134,27 @@ function constructHTML() {
   frame.style.overflow = "hidden";
   frame.style.pointerEvents = "none";
 
-  const svgMarkup = `<img id="frame" src="./assets/frame.svg" style="width:${min}px; height:${min}px; position:absolute;" />`;
-  frame.innerHTML = svgMarkup;
+  const frameImage = document.createElement('img');
+  frameImage.style.left = 0;
+  frameImage.style.top = 0;
+  frameImage.id = "frame";
+  frameImage.src = "./assets/frame.svg";
+  frameImage.style.position = "absolute";
+  frameImage.style.width = `${min}px`;
+  frameImage.style.height = `${min}px`;
+  frameImage.style.pointerEvents = "none";
 
-  const innerArea = document.createElement('div');
-  innerArea.style.position = "absolute";
-  innerArea.style.left = "10%";
-  innerArea.style.top = "10%";
-  innerArea.style.width = "calc(70%)";
-  innerArea.style.height = "calc(70%)";
-  innerArea.style.webkitAppRegion = "no-drag";
-  innerArea.style.pointerEvents = "none";
-  //innerArea.style.maskImage = "./assets/frame.svg";
-  //innerArea.style.maskMode = "alpha"
+  const noDrag = document.createElement('div');
+  noDrag.style.position = "absolute";
+  noDrag.style.left = "10%";
+  noDrag.style.top = "10%";
+  noDrag.style.width = "calc(70%)";
+  noDrag.style.height = "calc(70%)";
+  noDrag.style.webkitAppRegion = "no-drag";
+  noDrag.style.pointerEvents = "none";
 
-  frame.appendChild(innerArea);
+  frame.appendChild(frameImage);
+  frame.appendChild(noDrag);
 
   document.body.appendChild(renderer.domElement);
   document.body.appendChild(frame);
