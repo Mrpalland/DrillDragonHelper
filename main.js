@@ -2,7 +2,7 @@
 // Made By Evan Nave 2024
 // Concept and designs by Floombo
 // ---
-// Main Drilly logic stored in renderer.js
+// Main Drilly logic stored in renderer.js and helper.js
 // ----------------------------
 const { app, Tray, Menu, BrowserWindow, ipcMain, screen, nativeImage } = require('electron')
 const path = require('node:path')
@@ -27,6 +27,7 @@ function createWindow() {
     y: defaultY,
     transparent: true,
     frame: false,
+    //skipTaskbar: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,

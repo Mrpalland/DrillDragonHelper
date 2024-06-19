@@ -15,15 +15,18 @@
 const { ipcRenderer } = require('electron');
 const THREE = require('three');
 const { FBXLoader, OrbitControls } = require('three-stdlib');
+const { Helper} = require('./helper.js');
 
 // Globals
+const helper = new Helper();
 let mixer;
+let userIsInteracting;
 const clock = new THREE.Clock();
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(5, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true }); //Needs alpha for see-through effect
 const controls = new OrbitControls(camera, renderer.domElement);
-const targetCameraPosition = new THREE.Vector3(29.4, 3.921, 15.898);
+const targetCameraPosition = new THREE.Vector3(29.26, -0.7534, 16.2068);
 const targetCameraRotation = new THREE.Quaternion(0.8606, -0.0329, 0.5077, 0.01944); //Rotation is handled by orbit controls but is set for initial view.
 
 initScene();
@@ -31,10 +34,8 @@ initScene();
 // Main loop
 function animate() {
   requestAnimationFrame(animate);
-  if (mixer) {
-    mixer.update(clock.getDelta());
-  }
   controls.update();
+  helper.update();
   renderer.render(scene, camera);
 }
 
@@ -47,9 +48,9 @@ function initScene() {
 
   controls.enableDamping = true;
   controls.enablePan = true;
-  controls.enableZoom = false;
+  controls.enableZoom = true;
   controls.update();
-  controls.target.set(0.8, 1.4, 0);
+  controls.target.set(0.7834, 1.40787, 0.0415);
 
   addModel();
   constructHTML();
@@ -71,13 +72,15 @@ function addModel() {
       });
 
       if (object.animations && object.animations.length > 0) {
-        const action = mixer.clipAction(object.animations[0]);
+        var clip = THREE.AnimationClip.findByName(object.animations, "Idle");
+        var action = mixer.clipAction(clip);
         action.setLoop(THREE.LoopRepeat);
-        action.timeScale = 0.1;
+        action.timeScale = 0.25;
         action.play();
       }
 
       scene.add(object);
+      helper.setMixerAndAnimations(mixer, object.animations);
     },
     (xhr) => {
       console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`);
@@ -116,7 +119,7 @@ function createShaderMaterial() {
     vertexShader: vertexShader,
     fragmentShader: fragmentShader,
     vertexColors: true,
-    skinning: true
+    side: THREE.DoubleSide
   });
 }
 
