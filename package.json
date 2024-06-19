@@ -1,13 +1,14 @@
 {
-  "name": "realistic-treatment-enacted-311ea",
-  "productName": "realistic-treatment-enacted-311ea",
-  "description": "My Electron application description",
+  "name": "DrillDragonHelper",
+  "productName": "DrillDragonHelper",
+  "description": "Portable Dragon Helper Desktop Guy",
   "keywords": [],
   "main": "./main.js",
-  "version": "1.0.0",
-  "author": "Mrpalland",
+  "version": "0.85.0",
+  "author": "Evan Nave",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder build --win portable"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
@@ -17,5 +18,22 @@
   },
   "devDependencies": {
     "electron": "30.0.2"
-  }
+  },
+  "build": {
+    "appId": "com.mrpalland.DragonHelper",
+    "productName": "DrillDragonHelper",
+    "win": {
+      "icon": "assets/icons/Drilly.ico",
+      "target": [
+        "portable"
+      ],
+      "extraResources": [
+      {
+        "from": "assets/",
+        "to": "assets/",
+        "filter": ["**/*"]
+      }
+    ]
+    }
+}
 }

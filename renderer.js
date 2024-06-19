@@ -6,10 +6,10 @@
 // ✔ Sample IPC
 // ✔ Cleanup
 // ✔ Add emotional state and animation control
-// - Sounds
-// - Enable on startup
-// - Custom settings on tray -- Maybe control panel? -- Saving preferences
+// ✔ Sounds
 // - Dark Mode
+// - Custom settings on tray -- Maybe control panel? -- Saving preferences
+// - Enable on startup
 // - Customizable Model and Frame
 
 const { ipcRenderer } = require('electron');

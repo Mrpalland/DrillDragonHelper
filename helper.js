@@ -136,7 +136,7 @@ class Helper {
         nextState: () => 'idleState'
       },
       shiftyState: {
-        duration: 3,
+        duration: 1,
         onEnter: () => this.playAnimation('Shifty', 0.001),
         nextState: () => 'idleState'
       }

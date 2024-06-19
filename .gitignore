@@ -89,6 +89,8 @@ typings/
 
 assets/sounds
 
+dist/
+
 out
 *.blend
 *.blend1
