@@ -1,5 +1,5 @@
 // ----------------------------
-// Made By Evan Nave 2024
+// Evan Nave 2024
 // Concept and designs by Floombo
 // ---
 // Main Drilly logic stored in renderer.js and helper.js
@@ -23,7 +23,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: w,
     height: defaultSize,
-    x: 5,
+    x: 0,
     y: defaultY,
     transparent: true,
     frame: false,

@@ -87,6 +87,8 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+assets/sounds
+
 out
 *.blend
 *.blend1

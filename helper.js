@@ -1,41 +1,46 @@
-const { Clock, AnimationMixer } = require('three');
+// ----------------------------
+// Evan Nave 2024
+// Concept and designs by Floombo
+// ----------------------------
+const { Clock, AnimationMixer, AnimationClip, LoopRepeat } = require('three');
+const fs = require('fs');
+const path = require('path');
 
 class Helper {
   constructor() {
     this.clock = new Clock();
     this.mixer = null;
+    this.listener = null;
     this.animations = {};
     this.states = this.createStates();
     this.currentState = 'idleState';
     this.currentAction = null;
-    this.currentActionName = "Idle";
+    this.currentActionName = 'Idle';
     this.stateStartTime = this.clock.getElapsedTime();
+
+    this.soundPathRandom = "./assets/sounds/random/";
+    this.soundPathReactions = "./assets/sounds/reactions/";
+    this.randomSounds = null;
+    this.getRandomSounds();
   }
 
-  setMixerAndAnimations(mixer, animations) {
-    this.mixer = mixer;
-    this.animations = animations;
-  }
-
-  setStates(states) {
-    this.states = states;
+  start(){
+    this.playSound("./assets/sounds/reactions/Drilly_Hi2.mp3");
   }
 
   update() {
-    
     if (this.mixer) {
       this.mixer.update(this.clock.getDelta());
     }
-    
+
     const elapsedTime = this.clock.getElapsedTime();
     const currentStateObj = this.states[this.currentState];
-    if(!currentStateObj){
+    if (!currentStateObj) {
       return;
     }
     if (elapsedTime - this.stateStartTime > currentStateObj.duration) {
       this.transition(currentStateObj.nextState());
     }
-
   }
 
   transition(newState) {
@@ -45,12 +50,13 @@ class Helper {
     console.log(newState);
   }
 
-  playAnimation(animationName, fade = 0.1, loop = THREE.LoopRepeat) {
-    var clip = THREE.AnimationClip.findByName(this.animations, animationName);
-    if (clip && this.currentActionName != animationName) {
+  playAnimation(animationName, fade = 0.1, loop = LoopRepeat) {
+    const clip = AnimationClip.findByName(this.animations, animationName);
+
+    //Only update animation if it is different/exists
+    if (clip && this.currentActionName !== animationName) {
       const action = this.mixer.clipAction(clip);
 
-      // Check if there's a currently playing action and fade it out
       if (this.currentAction) {
         this.currentAction.fadeOut(fade);
       }
@@ -60,54 +66,82 @@ class Helper {
       action.setLoop(loop);
       action.play();
 
-      // Set the current action to the new action
       this.currentAction = action;
       this.currentActionName = animationName;
     } else {
-      console.log("No animation with the name " + animationName + " found. Or it is already Playing.");
+      console.log(`No animation with the name ${animationName} found. Or is already playing.`);
+    }
+  }
+
+  playSound(soundName){
+    if(!this.listener){
+      return;
+    }
+    
+    const sound = new THREE.Audio( this.listener );
+
+    // load a sound and set it as the Audio object's buffer
+    const audioLoader = new THREE.AudioLoader();
+    audioLoader.load(soundName, function( buffer ) {
+      sound.setBuffer( buffer );
+      sound.setLoop( false );
+      sound.setVolume( 0.75 );
+      sound.play();
+    });
+  }
+
+  playRandomSound(){
+    var item = this.randomSounds[this.randomSounds.length * Math.random() | 0];
+    this.playSound(item);
+  }
+  
+  getRandomSounds(){
+    var dir = this.soundPathRandom;
+    fs.readdir(dir, (err, files) => {
+      var paths = files.map(file => path.join(dir, file));
+      this.randomSounds = paths;
+    });
+  }
+
+  setMixerAndAnimations(mixer, animations) {
+    this.mixer = mixer;
+    this.animations = animations;
+  }
+
+  onClick(){
+    console.log("clicking");
+    if(this.currentState != 'shiftyState'){
+      this.transition('shiftyState')
     }
   }
 
   createStates() {
     return {
       idleState: {
-        duration: 5,
-        onEnter: () => {
-          this.playAnimation('Idle');
-        },
-        nextState: () => Math.random() < 0.5 ? 'talkState' : 'idleState'
+        duration: 20,
+        onEnter: () => this.playAnimation('Idle'),
+        nextState: () => (Math.random() < 0.15 ? 'idleState' : 'talkState')
       },
       talkState: {
-        duration: 3,
-        onEnter: () => this.playAnimation('Talk'),
+        duration: 1.0,
+        onEnter: () => {
+          this.playAnimation('Talk');
+          this.playRandomSound();
+        },
         nextState: () => 'idleState'
       },
-      random2: {
+      danceState: {
         duration: 3,
-        onEnter: () => this.playAnimation('RandomAnimation2'),
-        nextState: () => 'idle'
+        onEnter: () => this.playAnimation('Dance'),
+        nextState: () => 'idleState'
+      },
+      shiftyState: {
+        duration: 3,
+        onEnter: () => this.playAnimation('Shifty', 0.001),
+        nextState: () => 'idleState'
       }
     };
   }
 }
 
-// Define states and transitions
-const createStates = (helper) => ({
-  idle: {
-    duration: 5,
-    onEnter: () => helper.playAnimation('Idle'),
-    nextState: () => Math.random() < 0.5 ? 'random1' : 'random2'
-  },
-  random1: {
-    duration: 3,
-    onEnter: () => helper.playAnimation('RandomAnimation1'),
-    nextState: () => 'idle'
-  },
-  random2: {
-    duration: 3,
-    onEnter: () => helper.playAnimation('RandomAnimation2'),
-    nextState: () => 'idle'
-  }
-});
-
-module.exports = { Helper, createStates };
+module.exports = { Helper };

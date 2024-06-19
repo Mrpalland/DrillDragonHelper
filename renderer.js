@@ -1,11 +1,11 @@
 // ----------------------------
-// Made By Evan Nave 2024
+// Evan Nave 2024
 // Concept and designs by Floombo
 // ----------------------------
 // To-DO:
 // ✔ Sample IPC
 // ✔ Cleanup
-// - Add emotional state and animation control
+// ✔ Add emotional state and animation control
 // - Sounds
 // - Enable on startup
 // - Custom settings on tray -- Maybe control panel? -- Saving preferences
@@ -20,10 +20,12 @@ const { Helper} = require('./helper.js');
 // Globals
 const helper = new Helper();
 let mixer;
-let userIsInteracting;
+let userIsInteracting = false;
+let shouldReturnToView = false;
 const clock = new THREE.Clock();
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(5, window.innerWidth / window.innerHeight, 0.1, 1000);
+const listener = new THREE.AudioListener();
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true }); //Needs alpha for see-through effect
 const controls = new OrbitControls(camera, renderer.domElement);
 const targetCameraPosition = new THREE.Vector3(29.26, -0.7534, 16.2068);
@@ -34,7 +36,20 @@ initScene();
 // Main loop
 function animate() {
   requestAnimationFrame(animate);
-  controls.update();
+  
+  if (shouldReturnToView && !userIsInteracting) {
+    camera.position.lerp(targetCameraPosition, 0.1);
+    controls.update();
+
+    // Check if the camera is close enough to the target position
+    if (camera.position.distanceTo(targetCameraPosition) < 0.01) {
+        camera.position.copy(targetCameraPosition);
+        shouldReturnToView = false;
+    }
+    } else {
+        controls.update();
+    }
+
   helper.update();
   renderer.render(scene, camera);
 }
@@ -42,15 +57,23 @@ function animate() {
 function initScene() {
   camera.position.copy(targetCameraPosition);
   camera.quaternion.copy(targetCameraRotation);
+  camera.add(listener);
 
   renderer.setSize(window.innerHeight - 5, window.innerHeight - 5);
   renderer.setClearColor(0x4b6513, 0.85);
 
   controls.enableDamping = true;
-  controls.enablePan = true;
-  controls.enableZoom = true;
+  controls.enablePan = false;
+  controls.enableZoom = false;
+  controls.minPolarAngle = Math.PI/3; // radians
+  controls.maxPolarAngle = Math.PI/1.5; // radians
+  controls.maxAzimuthAngle = Math.PI / 2.6;
+  controls.minAzimuthAngle = Math.PI / 4.5;
   controls.update();
   controls.target.set(0.7834, 1.40787, 0.0415);
+
+  helper.listener = listener;
+  helper.start();
 
   addModel();
   constructHTML();
@@ -176,10 +199,13 @@ window.addEventListener('resize', () => {
 // Threejs listeners for user interaction
 controls.addEventListener('start', () => {
   userIsInteracting = true;
+  shouldReturnToView = false;
+  helper.onClick();
 });
 
 controls.addEventListener('end', () => {
   userIsInteracting = false;
+  shouldReturnToView = true;
 });
 
 // IPC Listener

@@ -10,6 +10,7 @@
     "start": "electron ."
   },
   "dependencies": {
+    "fs": "^0.0.1-security",
     "three": "^0.165.0",
     "three-stdlib": "^2.30.3",
     "three.js": "0.77.1"
