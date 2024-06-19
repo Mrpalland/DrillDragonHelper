@@ -3,6 +3,7 @@
 // Concept and designs by Floombo
 // ----------------------------
 const { Clock, AnimationMixer, AnimationClip, LoopRepeat } = require('three');
+const { app } = require('electron');
 const fs = require('fs');
 const path = require('path');
 
@@ -18,14 +19,15 @@ class Helper {
     this.currentActionName = 'Idle';
     this.stateStartTime = this.clock.getElapsedTime();
 
-    this.soundPathRandom = "./assets/sounds/random/";
-    this.soundPathReactions = "./assets/sounds/reactions/";
-    this.randomSounds = null;
+    this.soundPathRandom = path.join('.', 'assets', 'sounds', 'random');
+    //this.soundPathReactions = "./assets/sounds/reactions/";
+    this.randomSounds = [];
     this.getRandomSounds();
   }
 
   start(){
-    this.playSound("./assets/sounds/reactions/Drilly_Hi2.mp3");
+    this.playSound(path.join('.', 'assets', 'sounds', 'reactions', 'Drilly_Hi2.mp3'));
+    console.log(process.resourcesPath);
   }
 
   update() {
@@ -91,13 +93,24 @@ class Helper {
   }
 
   playRandomSound(){
-    var item = this.randomSounds[this.randomSounds.length * Math.random() | 0];
-    this.playSound(item);
+    if(this.randomSounds.length > 0){
+      var item = this.randomSounds[this.randomSounds.length * Math.random() | 0];
+      this.playSound(item);
+    } else {
+      console.error("No random sounds found!");
+    }
   }
   
   getRandomSounds(){
-    var dir = this.soundPathRandom;
+    var dir;
+    if(!this.folderExists('.', 'resources')){
+      dir = this.soundPathRandom;
+    } else {
+      dir = path.join(process.resourcesPath, this.soundPathRandom);
+    }
+
     fs.readdir(dir, (err, files) => {
+      console.log(err);
       var paths = files.map(file => path.join(dir, file));
       this.randomSounds = paths;
     });
@@ -118,7 +131,7 @@ class Helper {
   createStates() {
     return {
       idleState: {
-        duration: 20,
+        duration: 60,
         onEnter: () => this.playAnimation('Idle'),
         nextState: () => (Math.random() < 0.15 ? 'idleState' : 'talkState')
       },
@@ -141,6 +154,23 @@ class Helper {
         nextState: () => 'idleState'
       }
     };
+  }
+
+  folderExists(dir, folderName) {
+    try {
+      const items = fs.readdirSync(dir);
+      for (const item of items) {
+        const itemPath = path.join(dir, item);
+        const stats = fs.statSync(itemPath);
+        if (stats.isDirectory() && item === folderName) {
+          return true;
+        }
+      }
+      return false;
+    } catch (err) {
+      console.error('Error reading directory:', err);
+      return false;
+    }
   }
 }
 

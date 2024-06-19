@@ -8,7 +8,7 @@
   "author": "Evan Nave",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder build --win portable"
+    "build": "npx electron-builder build --win portable"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
@@ -17,7 +17,8 @@
     "three.js": "0.77.1"
   },
   "devDependencies": {
-    "electron": "30.0.2"
+    "electron": "30.0.2",
+    "electron-builder": "^24.13.3"
   },
   "build": {
     "appId": "com.mrpalland.DragonHelper",
@@ -28,12 +29,14 @@
         "portable"
       ],
       "extraResources": [
-      {
-        "from": "assets/",
-        "to": "assets/",
-        "filter": ["**/*"]
-      }
-    ]
+        {
+          "from": "assets/",
+          "to": "assets/",
+          "filter": [
+            "**/*"
+          ]
+        }
+      ]
     }
-}
+  }
 }
