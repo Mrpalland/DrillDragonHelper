@@ -4,8 +4,9 @@
 // ---
 // Main Drilly logic stored in renderer.js and helper.js
 // ----------------------------
-const { app, Tray, Menu, BrowserWindow, ipcMain, screen, nativeImage } = require('electron')
-const path = require('node:path')
+const { app, Tray, Menu, BrowserWindow, ipcMain, screen, nativeImage } = require('electron');
+const path = require('node:path');
+const fs = require('fs');
 
 let tray;
 let mainWindow;
@@ -36,6 +37,7 @@ function createWindow() {
   })
 
   mainWindow.setAlwaysOnTop(true, 'screen');
+  mainWindow.setResizable(false);
 
   mainWindow.loadFile('index.html');
 
@@ -45,8 +47,7 @@ function createWindow() {
   });
 
   mainWindow.on('move', () => {
-    //const [x, y] = mainWindow.getPosition();
-    //console.log(`Window moved to: ${x}, ${y}`);
+    //mainWindow.webContents.send('window-moving', menuItem.checked);
   });
 
   ipcMain.handle('get-displays', () => screen.getAllDisplays());
@@ -59,11 +60,17 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 
-  const icon = nativeImage.createFromPath("./assets/icon.png");
+  var dir;
+  if(!folderExists('.', 'resources')){
+    dir = './assets/icon.png';
+  } else {
+    dir = path.join(process.resourcesPath, 'assets/icon.png');
+  }
+  const icon = nativeImage.createFromPath(dir);
   tray = new Tray(icon);
 
   const contextMenu = Menu.buildFromTemplate([
-    {
+    /*{
       label: 'Open Control Panel',
       type: 'normal',
       click: () => {
@@ -72,9 +79,9 @@ app.whenReady().then(() => {
         // let win = new BrowserWindow({ width: 800, height: 600 });
         // win.loadURL('controlpanel.html');
       }
-    },
+    },*/
     {
-      label: 'Reset Helper Position',
+      label: 'Reset Window Position',
       type: 'normal',
       click: () => {
         console.log('Window Reset');
@@ -83,7 +90,7 @@ app.whenReady().then(() => {
       }
     },
     { type: 'separator' },
-    {
+    /*{
       label: 'Enable Dark Mode',
       type: 'checkbox',
       checked: false,
@@ -91,31 +98,46 @@ app.whenReady().then(() => {
         mainWindow.webContents.send('toggle-dark-mode', menuItem.checked);
         console.log(menuItem.checked ? 'Dark mode enabled' : 'Dark mode disabled');
       }
+    },*/
+    {
+      label: 'Mute',
+      type: 'checkbox',
+      click: (menuItem) => {
+        mainWindow.webContents.send('mute', menuItem.checked);
+      }
     },
     {
-      label: 'Quick Options',
-      submenu: [
-        {
-          label: 'Mute',
-          type: 'checkbox',
-          click: (menuItem) => {
-            console.log(menuItem.checked ? 'Mute Not Yet Implemented' : 'UnMute Not Yet Implemented');
-          }
+      label: 'Window Size',
+      submenu: [ //Planned functionality will let user decide window size
+        { 
+          label: 'Tiny', 
+          type: 'radio', 
+          click: () => setHelperSize(0.08) 
         },
-        {
-          label: 'Push Notifications',
-          type: 'checkbox',
-          click: (menuItem) => {
-            console.log(menuItem.checked ? 'Push notifications enabled' : 'Push notifications disabled');
-          }
+        { 
+          label: 'Small', 
+          type: 'radio', 
+          checked: true,
+          click: () => setHelperSize(0.167)
         },
+        { 
+          label: 'Medium', 
+          type: 'radio', 
+          click: () => setHelperSize(0.25) 
+        },
+        { 
+          label: 'Large', 
+          type: 'radio', 
+          click: () => setHelperSize(0.45) 
+        }
+        /*,
         {
           label: 'Launch on Startup',
           type: 'checkbox',
           click: (menuItem) => {
             console.log(menuItem.checked ? 'Launch on Startup enabled' : 'Launch on Startup disabled');
           }
-        }
+        }*/
       ]
     },
     {
@@ -136,3 +158,30 @@ app.on('before-quit', () => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
+
+function setHelperSize(size){
+  const primaryDisplay = screen.getPrimaryDisplay()
+  const { width, height } = primaryDisplay.workAreaSize
+  var dim = Math.floor(height * size);
+  mainWindow.setPosition(0, height - dim);
+  mainWindow.setResizable(true);
+  mainWindow.setSize(dim, dim);
+  mainWindow.setResizable(false);
+}
+
+function folderExists(dir, folderName) {
+  try {
+    const items = fs.readdirSync(dir);
+    for (const item of items) {
+      const itemPath = path.join(dir, item);
+      const stats = fs.statSync(itemPath);
+      if (stats.isDirectory() && item === folderName) {
+        return true;
+      }
+    }
+    return false;
+  } catch (err) {
+    console.error('Error reading directory:', err);
+    return false;
+  }
+}

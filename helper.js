@@ -18,6 +18,7 @@ class Helper {
     this.currentAction = null;
     this.currentActionName = 'Idle';
     this.stateStartTime = this.clock.getElapsedTime();
+    this.mute = false;
 
     this.soundPathRandom = path.join('.', 'assets', 'sounds', 'random');
     //this.soundPathReactions = "./assets/sounds/reactions/";
@@ -76,7 +77,7 @@ class Helper {
   }
 
   playSound(soundName){
-    if(!this.listener){
+    if(!this.listener || this.mute){
       return;
     }
     
@@ -122,9 +123,8 @@ class Helper {
   }
 
   onClick(){
-    console.log("clicking");
-    if(this.currentState != 'shiftyState'){
-      this.transition('shiftyState')
+    if(this.currentState != 'danceState'){
+      this.transition('danceState')
     }
   }
 
@@ -132,7 +132,7 @@ class Helper {
     return {
       idleState: {
         duration: 60,
-        onEnter: () => this.playAnimation('Idle'),
+        onEnter: () => this.playAnimation('Idle', 0.05),
         nextState: () => (Math.random() < 0.15 ? 'idleState' : 'talkState')
       },
       talkState: {
@@ -145,7 +145,7 @@ class Helper {
       },
       danceState: {
         duration: 3,
-        onEnter: () => this.playAnimation('Dance'),
+        onEnter: () => this.playAnimation('Dance', 0.01),
         nextState: () => 'idleState'
       },
       shiftyState: {

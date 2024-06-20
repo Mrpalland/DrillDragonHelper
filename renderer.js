@@ -73,9 +73,10 @@ function initScene() {
   controls.target.set(0.7834, 1.40787, 0.0415);
 
   helper.listener = listener;
-  helper.start();
-
+  
   addModel();
+  helper.start();
+  
   constructHTML();
   animate();
 }
@@ -103,6 +104,7 @@ function addModel() {
       }
 
       scene.add(object);
+      helper.currentAction = action;
       helper.setMixerAndAnimations(mixer, object.animations);
     },
     (xhr) => {
@@ -142,7 +144,7 @@ function createShaderMaterial() {
     vertexShader: vertexShader,
     fragmentShader: fragmentShader,
     vertexColors: true,
-    side: THREE.DoubleSide
+    side: THREE.FrontSide
   });
 }
 
@@ -182,6 +184,7 @@ function constructHTML() {
   frame.appendChild(frameImage);
   frame.appendChild(noDrag);
 
+  renderer.domElement.style.userSelect = false;
   document.body.appendChild(renderer.domElement);
   document.body.appendChild(frame);
   document.getElementById("frame").style.width = `${min}px`;
@@ -211,4 +214,8 @@ controls.addEventListener('end', () => {
 // IPC Listener
 ipcRenderer.on('toggle-dark-mode', (event, isDarkMode) => {
   console.log("Dark Mode Toggled");
+});
+
+ipcRenderer.on('mute', (event, mute) => {
+  helper.mute = mute;
 });
