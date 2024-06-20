@@ -33,9 +33,14 @@
           "from": "assets/",
           "to": "assets/",
           "filter": [
-            "**/*"
+            "**/*",
+             "!src/**/*"
           ]
         }
+      ],
+      "files": [
+        "!assets/src/**/*",
+        "**/*"
       ]
     }
   }

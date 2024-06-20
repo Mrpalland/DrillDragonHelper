@@ -62,9 +62,9 @@ app.whenReady().then(() => {
 
   var dir;
   if(!folderExists('.', 'resources')){
-    dir = './assets/icon.png';
+    dir = './assets/icons/icon.png';
   } else {
-    dir = path.join(process.resourcesPath, 'assets/icon.png');
+    dir = path.join(process.resourcesPath, 'assets/icons/icon.png');
   }
   const icon = nativeImage.createFromPath(dir);
   tray = new Tray(icon);
