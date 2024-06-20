@@ -108,7 +108,7 @@ function addModel() {
       helper.setMixerAndAnimations(mixer, object.animations);
     },
     (xhr) => {
-      console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`);
+      //console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`);
     },
     (error) => {
       console.error(error);

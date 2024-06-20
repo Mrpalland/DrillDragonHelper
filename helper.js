@@ -28,7 +28,6 @@ class Helper {
 
   start(){
     this.playSound(path.join('.', 'assets', 'sounds', 'reactions', 'Drilly_Hi2.mp3'));
-    console.log(process.resourcesPath);
   }
 
   update() {
@@ -124,7 +123,8 @@ class Helper {
 
   onClick(){
     if(this.currentState != 'danceState'){
-      this.transition('danceState')
+      this.playRandomSound();
+      this.transition('danceState');
     }
   }
 
