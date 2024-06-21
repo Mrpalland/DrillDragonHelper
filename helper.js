@@ -21,12 +21,11 @@ class Helper {
     this.mute = false;
 
     this.soundPathRandom = path.join('.', 'assets', 'sounds', 'random');
-    //this.soundPathReactions = "./assets/sounds/reactions/";
     this.randomSounds = [];
     this.getRandomSounds();
   }
 
-  start(){
+  start() {
     this.playSound(path.join('.', 'assets', 'sounds', 'reactions', 'Drilly_Hi2.mp3'));
   }
 
@@ -55,7 +54,6 @@ class Helper {
   playAnimation(animationName, fade = 0.1, loop = LoopRepeat) {
     const clip = AnimationClip.findByName(this.animations, animationName);
 
-    //Only update animation if it is different/exists
     if (clip && this.currentActionName !== animationName) {
       const action = this.mixer.clipAction(clip);
 
@@ -75,44 +73,39 @@ class Helper {
     }
   }
 
-  playSound(soundName){
-    if(!this.listener || this.mute){
+  playSound(soundName) {
+    if (!this.listener || this.mute) {
       return;
     }
-    
-    const sound = new THREE.Audio( this.listener );
 
-    // load a sound and set it as the Audio object's buffer
+    const sound = new THREE.Audio(this.listener);
     const audioLoader = new THREE.AudioLoader();
-    audioLoader.load(soundName, function( buffer ) {
-      sound.setBuffer( buffer );
-      sound.setLoop( false );
-      sound.setVolume( 0.75 );
+    audioLoader.load(soundName, function(buffer) {
+      sound.setBuffer(buffer);
+      sound.setLoop(false);
+      sound.setVolume(0.75);
       sound.play();
     });
   }
 
-  playRandomSound(){
-    if(this.randomSounds.length > 0){
-      var item = this.randomSounds[this.randomSounds.length * Math.random() | 0];
+  playRandomSound() {
+    if (this.randomSounds.length > 0) {
+      const item = this.randomSounds[Math.floor(Math.random() * this.randomSounds.length)];
       this.playSound(item);
     } else {
       console.error("No random sounds found!");
     }
   }
-  
-  getRandomSounds(){
-    var dir;
-    if(!this.folderExists('.', 'resources')){
-      dir = this.soundPathRandom;
-    } else {
-      dir = path.join(process.resourcesPath, this.soundPathRandom);
-    }
+
+  getRandomSounds() {
+    const dir = this.folderExists('.', 'resources') ? path.join(process.resourcesPath, this.soundPathRandom) : this.soundPathRandom;
 
     fs.readdir(dir, (err, files) => {
-      console.log(err);
-      var paths = files.map(file => path.join(dir, file));
-      this.randomSounds = paths;
+      if (err) {
+        console.error(err);
+        return;
+      }
+      this.randomSounds = files.map(file => path.join(dir, file));
     });
   }
 
@@ -121,8 +114,8 @@ class Helper {
     this.animations = animations;
   }
 
-  onClick(){
-    if(this.currentState != 'danceState'){
+  onClick() {
+    if (this.currentState !== 'danceState') {
       this.playRandomSound();
       this.transition('danceState');
     }
@@ -159,14 +152,7 @@ class Helper {
   folderExists(dir, folderName) {
     try {
       const items = fs.readdirSync(dir);
-      for (const item of items) {
-        const itemPath = path.join(dir, item);
-        const stats = fs.statSync(itemPath);
-        if (stats.isDirectory() && item === folderName) {
-          return true;
-        }
-      }
-      return false;
+      return items.some(item => fs.statSync(path.join(dir, item)).isDirectory() && item === folderName);
     } catch (err) {
       console.error('Error reading directory:', err);
       return false;

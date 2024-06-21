@@ -92,6 +92,8 @@ assets/src
 
 dist/
 
+.vscode
+
 out
 *.blend
 *.blend1

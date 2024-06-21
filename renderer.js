@@ -7,7 +7,7 @@
 // ✔ Cleanup
 // ✔ Add emotional state and animation control
 // ✔ Sounds
-// - Dark Mode
+// ✔ Cleanup
 // - Custom settings on tray -- Maybe control panel? -- Saving preferences
 // - Enable on startup
 // - Customizable Model and Frame
