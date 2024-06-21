@@ -85,7 +85,7 @@ app.whenReady().then(() => {
       type: 'normal',
       click: () => {
         console.log('Window Reset');
-        mainWindow.setPosition(5,defaultY);
+        mainWindow.setPosition(0,defaultY);
         mainWindow.setBounds({width: defaultSize, height: defaultSize})
       }
     },

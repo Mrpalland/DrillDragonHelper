@@ -4,7 +4,7 @@
   "description": "Portable Dragon Helper Desktop Guy",
   "keywords": [],
   "main": "./main.js",
-  "version": "0.9.5",
+  "version": "1.0.0",
   "author": "Evan Nave",
   "scripts": {
     "start": "electron .",

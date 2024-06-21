@@ -87,7 +87,7 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-assets/sounds
+# assets/sounds #Floombo-Approved
 assets/src
 
 dist/
