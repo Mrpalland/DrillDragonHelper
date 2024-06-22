@@ -92,7 +92,7 @@ assets/source_files
 
 dist/
 
-.vscode
+.vscode/
 
 out
 *.blend
