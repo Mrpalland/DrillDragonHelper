@@ -8,6 +8,7 @@ Drilly from the game Garn47 by Floombo! They're real now!
 
 - Full 3D!
 - Randomly makes sounds like the game!
+- Repositionable by dragging the green frame!
 
 ## Installation
 
