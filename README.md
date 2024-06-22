@@ -48,7 +48,7 @@ Drilly's design, model and sounds are from Garn47, a game by Floombo. This repo 
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/Mrpalland/DrillDragonHelper.git
+git clone "https://github.com/Mrpalland/DrillDragonHelper.git"
 cd DrillDragonHelper
 ```
 
