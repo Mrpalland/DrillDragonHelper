@@ -20,13 +20,13 @@ class Helper {
     this.stateStartTime = this.clock.getElapsedTime();
     this.mute = false;
 
-    this.soundPathRandom = path.join('.', 'assets', 'sounds', 'random');
+    this.soundPathRandom = path.join('assets', 'sounds', 'random');
     this.randomSounds = [];
     this.getRandomSounds();
   }
 
   start() {
-    this.playSound(path.join('.', 'assets', 'sounds', 'reactions', 'Drilly_Hi2.mp3'));
+    this.playSound(path.join('..', 'assets', 'sounds', 'reactions', 'Drilly_Hi2.mp3'));
   }
 
   update() {
@@ -98,7 +98,7 @@ class Helper {
   }
 
   getRandomSounds() {
-    const dir = this.folderExists('.', 'resources') ? path.join(process.resourcesPath, this.soundPathRandom) : this.soundPathRandom;
+    const dir = this.folderExists('.', 'resources') ? path.join(process.resourcesPath, this.soundPathRandom) : path.join(__dirname, '..', this.soundPathRandom);
 
     fs.readdir(dir, (err, files) => {
       if (err) {

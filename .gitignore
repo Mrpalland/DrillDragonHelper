@@ -88,7 +88,7 @@ typings/
 .dynamodb/
 
 # assets/sounds #Floombo-Approved
-assets/src
+assets/source_files
 
 dist/
 

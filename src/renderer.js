@@ -17,6 +17,10 @@ const THREE = require('three');
 const { FBXLoader, OrbitControls } = require('three-stdlib');
 const { Helper} = require('./helper.js');
 
+// Files
+const modelDir = '../assets/DrillyModel.fbx';
+const frameDir = '../assets/frame.svg';
+
 // Globals
 const helper = new Helper();
 let mixer;
@@ -85,7 +89,7 @@ function initScene() {
 function addModel() {
   const fbxLoader = new FBXLoader();
   fbxLoader.load(
-    './assets/DrillyModel.fbx',
+    modelDir,
     (object) => {
       mixer = new THREE.AnimationMixer(object);
 
@@ -166,7 +170,7 @@ function constructHTML() {
   frameImage.style.left = 0;
   frameImage.style.top = 0;
   frameImage.id = "frame";
-  frameImage.src = "./assets/frame.svg";
+  frameImage.src = frameDir;
   frameImage.style.position = "absolute";
   frameImage.style.width = `${min}px`;
   frameImage.style.height = `${min}px`;

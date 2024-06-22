@@ -3,8 +3,8 @@
   "productName": "DrillDragonHelper",
   "description": "Portable Dragon Helper Desktop Guy",
   "keywords": [],
-  "main": "./main.js",
-  "version": "1.0.1",
+  "main": "./src/main.js",
+  "version": "1.0.2",
   "author": "Evan Nave",
   "scripts": {
     "start": "electron .",
@@ -34,12 +34,12 @@
           "to": "assets/",
           "filter": [
             "**/*",
-             "!src/**/*"
+             "!source_files/**/*"
           ]
         }
       ],
       "files": [
-        "!assets/src/**/*",
+        "!assets/source_files/**/*",
         "**/*"
       ]
     }

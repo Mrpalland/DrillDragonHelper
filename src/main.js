@@ -37,7 +37,7 @@ function createWindow() {
 
   mainWindow.setAlwaysOnTop(true, 'screen');
   mainWindow.setResizable(false);
-  mainWindow.loadFile('index.html');
+  mainWindow.loadFile('src/index.html');
 
   mainWindow.on('resize', () => {
     // TBD
