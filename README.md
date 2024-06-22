@@ -80,6 +80,8 @@ npx electron-builder build
 
 This will create a release in the `dist` folder.
 
+> **electron-builder may need elevated permissions the first time it installs the needed dependencies.**
+
 ## Acknowledgements
 
 - Thanks to Floombo for being totally garnular and supplying Drilly's assets to his community and their continued work on the game Garn47.
