@@ -19,7 +19,7 @@ Latest build here: [Latest Release](https://github.com/Mrpalland/DrillDragonHelp
 
 ## License
 
-Since Drilly's design, model and sounds are from Garn47, a game by Floombo. This repo uses assets that were created by and belong to Floombo under the [CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/) license. The assets in the `assets` directory remain under the `CC BY-NC-SA` license.
+Drilly's design, model and sounds are from Garn47, a game by Floombo. This repo uses assets that were created by and belong to Floombo under the [CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/) license. The assets in the `assets` directory remain under the `CC BY-NC-SA` license.
 
 ![CC BY-NC-SA](https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png)
 
