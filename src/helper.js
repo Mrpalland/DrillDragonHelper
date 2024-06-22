@@ -124,7 +124,7 @@ class Helper {
   createStates() {
     return {
       idleState: {
-        duration: 60,
+        duration: 120,
         onEnter: () => this.playAnimation('Idle', 0.05),
         nextState: () => (Math.random() < 0.15 ? 'idleState' : 'talkState')
       },
