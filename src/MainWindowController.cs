@@ -15,9 +15,11 @@ public partial class MainWindowController : Node
 
 	public bool snappingEnabled = true;
 
+	private int currentScreen => GetWindow().CurrentScreen;
+
 	private Vector2 windowSize => GetWindow().Size;
 	
-	private Vector2I availableScreen =>  DisplayServer.ScreenGetUsableRect(0).Abs().Size;
+	private Vector2I availableScreen =>  DisplayServer.ScreenGetUsableRect(currentScreen).Abs().Size;
 
 	public Vector2 normalizedWindowPosition => (GetWindow().Position - DisplayServer.ScreenGetPosition(0))/availableScreen;
 	public override void _Ready()
@@ -42,8 +44,8 @@ public partial class MainWindowController : Node
 			return;
 		}
 
-		Vector2 relativePos = position - DisplayServer.ScreenGetPosition(0);
-		relativePos /= DisplayServer.ScreenGetSize(0);
+		Vector2 relativePos = position - DisplayServer.ScreenGetPosition(currentScreen);
+		relativePos /= DisplayServer.ScreenGetSize(currentScreen);
 		PositionWindow(relativePos.Round());
 
 	}
@@ -56,7 +58,7 @@ public partial class MainWindowController : Node
 	public void PositionWindow(Vector2 position){
 		Vector2I newPosition = (Vector2I)((Vector2)(availableScreen - GetWindow().Size) * position);
 
-		GetWindow().Position = newPosition + DisplayServer.ScreenGetPosition(0);
+		GetWindow().Position = newPosition + DisplayServer.ScreenGetPosition(currentScreen);
 	}
 
 	public void SnapToCorner(Corner corner){

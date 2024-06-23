@@ -31,7 +31,7 @@ Drilly's design, model and sounds are from Garn47, a game by Floombo. This repo 
 
 ### Known Issues
 
-- [ ] Corner Snapping can break with multiple monitors
+- [X] Corner Snapping can break with multiple monitors
 - [ ] Limited interaction
 - [ ] Asset loading from directory may not be robust on all platforms
 
