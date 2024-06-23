@@ -1,0 +1,68 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="DrillDragonHelper"
+config/description="Drilly from the game Garn47 by Floombo. Recreated fro desktop by Evan Nave."
+config/version="2.0.0"
+run/main_scene="res://src/scene.tscn"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+boot_splash/bg_color=Color(0.156108, 0.214497, 0.0395098, 1)
+boot_splash/image="res://assets/icons/DrillyStatic.png"
+boot_splash/use_filter=false
+config/icon="res://assets/icons/icon.png"
+config/windows_native_icon="res://assets/icons/Drilly.ico"
+boot_splash/minimum_display_time=1000
+
+[autoload]
+
+Frame="res://src/Frame.cs"
+
+[display]
+
+window/size/viewport_width=1024
+window/size/viewport_height=1024
+window/size/resizable=false
+window/size/borderless=true
+window/size/always_on_top=true
+window/size/transparent=true
+window/size/window_width_override=300
+window/size/window_height_override=300
+window/subwindows/embed_subwindows=false
+window/stretch/mode="viewport"
+window/per_pixel_transparency/allowed=true
+
+[dotnet]
+
+project/assembly_name="DrillDragonHelper"
+
+[input]
+
+click={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+right-click={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+options={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

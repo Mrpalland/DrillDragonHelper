@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://dh6l2424wmjm2"]
+
+[ext_resource type="Texture2D" uid="uid://cavvt617l57ue" path="res://assets/frame.svg" id="1_15esx"]
+[ext_resource type="Script" path="res://src/Frame.cs" id="2_ta0qv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cd4pm"]
+size = Vector2(1929.23, 180.626)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnfto"]
+size = Vector2(172.94, 1933.08)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4vkyw"]
+size = Vector2(1925.39, 161.41)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8uy4"]
+size = Vector2(172.939, 1929.23)
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="FrameSprite" type="Sprite2D" parent="."]
+top_level = true
+position = Vector2(250.75, 250.75)
+scale = Vector2(0.25969, 0.25969)
+texture = ExtResource("1_15esx")
+
+[node name="Frame" type="Area2D" parent="."]
+position = Vector2(251.25, 251.25)
+scale = Vector2(0.260207, 0.260207)
+script = ExtResource("2_ta0qv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame"]
+position = Vector2(-0.960815, -879.109)
+shape = SubResource("RectangleShape2D_cd4pm")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Frame"]
+position = Vector2(-882.952, 0.960632)
+shape = SubResource("RectangleShape2D_vnfto")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Frame"]
+position = Vector2(-2.8822, 879.109)
+shape = SubResource("RectangleShape2D_4vkyw")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Frame"]
+position = Vector2(877.187, -0.960938)
+shape = SubResource("RectangleShape2D_h8uy4")

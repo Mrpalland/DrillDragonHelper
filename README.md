@@ -9,13 +9,15 @@ Drilly from the game Garn47 by Floombo! They're real now!
 - Full 3D!
 - Randomly makes sounds like the game!
 - Repositionable by dragging the green frame!
-- Change size via the taskbar tray!
+
+## Use
+- Drag frame to move around screen, (by default corner-snapping is enabled)
+- Right-click the frame or press escape for options menu
+
 
 ## Installation
 
 Latest build here: [Latest Release](https://github.com/Mrpalland/DrillDragonHelper/releases/latest)
-
-> Currently only a Windows portable application is available but build instructions are below.
 
 ## License
 
@@ -23,14 +25,14 @@ Drilly's design, model and sounds are from Garn47, a game by Floombo. This repo 
 
 ![CC BY-NC-SA](https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png)
 
-> Changes to the Assets: The Drilly model has been tweaked slightly to allow for easy import with Threejs FBX Loader.
+> Changes to the Assets: The Drilly model has been tweaked slightly to allow for easy import into Godot.
 
 ## Issues
 
 ### Known Issues
 
+- [ ] Corner Snapping can break with multiple monitors
 - [ ] Limited interaction
-- [ ] Window highlights if double clicked
 - [ ] Asset loading from directory may not be robust on all platforms
 
 ## Planned Features
@@ -42,8 +44,7 @@ Drilly's design, model and sounds are from Garn47, a game by Floombo. This repo 
 
 ## Building from Source
 
-- Node.js (v20 or later)
-- npm (v10 or later)
+- Godot 4.2.2 or higher
 
 ### Clone the Repository
 
@@ -51,36 +52,6 @@ Drilly's design, model and sounds are from Garn47, a game by Floombo. This repo 
 git clone "https://github.com/Mrpalland/DrillDragonHelper.git"
 cd DrillDragonHelper
 ```
-
-### Install Dependencies
-
-```bash
-npm install
-```
-
-### Run the Application
-
-```bash
-npm start
-```
-
-## Building
-
-To build a portable application for windows use:
-
-```bash
-npm run build
-```
-
-for other platforms use
-
-```bash
-npx electron-builder build
-```
-
-This will create a release in the `dist` folder.
-
-> **electron-builder may need elevated permissions the first time it installs the needed dependencies.**
 
 ## Acknowledgements
 

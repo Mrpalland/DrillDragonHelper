@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0od5lkrjocbg"]
+
+[ext_resource type="PackedScene" uid="uid://ccuhjmw1qqij6" path="res://assets/DrillyModel.fbx" id="1_216u4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7m26s"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[node name="Drilly" instance=ExtResource("1_216u4")]
+
+[node name="Skeleton3D" parent="RootNode/Drilly" index="0"]
+bones/1/rotation = Quaternion(-0.453671, -0.542386, -0.453671, 0.542386)
+bones/4/rotation = Quaternion(-0.453671, -0.542386, -0.453671, 0.542386)
+bones/7/position = Vector3(-0.00581911, 0.0113368, -4.9331e-09)
+bones/7/rotation = Quaternion(-0.469495, 0.530169, 0.50645, 0.491939)
+bones/8/rotation = Quaternion(0.470319, -0.412727, -0.486236, 0.609944)
+bones/9/position = Vector3(-0.000695392, 0.0117393, 0.00237766)
+bones/9/rotation = Quaternion(-0.0451766, 0.704691, 0.707469, 0.0292808)
+bones/9/scale = Vector3(0.511123, 1.32121, 1.2445)
+bones/10/position = Vector3(-0.00522181, 0.00452638, 0.0018086)
+bones/10/rotation = Quaternion(-0.102448, 0.69319, 0.713436, -0.000524908)
+bones/10/scale = Vector3(1.15137, 1.29283, 1.45673)
+bones/12/rotation = Quaternion(-0.150471, 4.41947e-08, -2.91485e-08, 0.988614)
+bones/13/rotation = Quaternion(0.495411, 0.504547, 0.495411, 0.504547)
+bones/15/rotation = Quaternion(-0.150471, 1.17852e-07, -1.79376e-08, 0.988614)
+bones/16/rotation = Quaternion(0.495411, 0.504547, 0.495411, 0.504547)
+bones/17/position = Vector3(-0.00155358, 3.00941e-05, -0.00400082)
+bones/17/rotation = Quaternion(-0.312073, -0.312073, 0.634516, 0.634516)
+
+[node name="drillyBody" parent="RootNode/Drilly/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7m26s")
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "Idle"
+playback_default_blend_time = 0.05
