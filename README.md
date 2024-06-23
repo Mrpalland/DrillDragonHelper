@@ -44,7 +44,7 @@ Drilly's design, model and sounds are from Garn47, a game by Floombo. This repo 
 
 ## Building from Source
 
-- Godot 4.2.2 or higher
+- Godot 4.2.2 mono or higher
 
 ### Clone the Repository
 
