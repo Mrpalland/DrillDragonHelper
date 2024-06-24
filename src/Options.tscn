@@ -144,7 +144,6 @@ text = "ColorPickerButton"
 
 [node name="Button2" type="Button" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 8
 text = "Reset Window Position"
 
 [node name="Button" type="Button" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer"]
@@ -158,7 +157,7 @@ text = "(More Options to be Added)"
 label_settings = SubResource("LabelSettings_ib4qk")
 horizontal_alignment = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MainPanel/HSplitContainer/BasicControls"]
+[node name="Copyright" type="VBoxContainer" parent="MainPanel/HSplitContainer/BasicControls"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -172,7 +171,7 @@ offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="LinkButton" type="LinkButton" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer2"]
+[node name="LinkButton" type="LinkButton" parent="MainPanel/HSplitContainer/BasicControls/Copyright"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -180,22 +179,22 @@ tooltip_text = "Hint Tooltip"
 text = "Project Github"
 uri = "https://github.com/Mrpalland/DrillDragonHelper"
 
-[node name="HSeparator" type="HSeparator" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer2"]
+[node name="HSeparator" type="HSeparator" parent="MainPanel/HSplitContainer/BasicControls/Copyright"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainPanel/HSplitContainer/BasicControls/Copyright"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer2/HBoxContainer"]
+[node name="Label2" type="Label" parent="MainPanel/HSplitContainer/BasicControls/Copyright/HBoxContainer"]
 layout_mode = 2
 text = "Copyright: Evan Nave 2024"
 label_settings = SubResource("LabelSettings_v88dh")
 horizontal_alignment = 2
 
-[node name="VSeparator" type="VSeparator" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer2/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="MainPanel/HSplitContainer/BasicControls/Copyright/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer2/HBoxContainer"]
+[node name="Label" type="Label" parent="MainPanel/HSplitContainer/BasicControls/Copyright/HBoxContainer"]
 layout_mode = 2
 text = "Base Assets by Floombo "
 label_settings = SubResource("LabelSettings_880ur")
