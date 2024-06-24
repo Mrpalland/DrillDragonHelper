@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsxpf2in20rhc"]
+[gd_scene load_steps=9 format=3 uid="uid://dsxpf2in20rhc"]
 
 [ext_resource type="Script" path="res://src/OptionsMenu.cs" id="1_4qwew"]
+[ext_resource type="Script" path="res://src/version-label.gd" id="2_1ur2s"]
 
 [sub_resource type="FontFile" id="1"]
 fallbacks = Array[Font]([null])
@@ -12,6 +13,7 @@ cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/8/0 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/12/0 = Vector2(0, 0)
 cache/0/8/0/ascent = 0.0
 cache/0/8/0/descent = 0.0
 cache/0/8/0/underline_position = 0.0
@@ -20,6 +22,7 @@ cache/0/8/0/scale = 1.0
 cache/0/8/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/8/0/kerning_overrides/8/0 = Vector2(0, 0)
 cache/0/8/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/8/0/kerning_overrides/12/0 = Vector2(0, 0)
 cache/0/13/0/ascent = 0.0
 cache/0/13/0/descent = 0.0
 cache/0/13/0/underline_position = 0.0
@@ -28,6 +31,16 @@ cache/0/13/0/scale = 1.0
 cache/0/13/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/13/0/kerning_overrides/8/0 = Vector2(0, 0)
 cache/0/13/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/13/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/12/0/ascent = 0.0
+cache/0/12/0/descent = 0.0
+cache/0/12/0/underline_position = 0.0
+cache/0/12/0/underline_thickness = 0.0
+cache/0/12/0/scale = 1.0
+cache/0/12/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/8/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/13/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/12/0 = Vector2(0, 0)
 
 [sub_resource type="Theme" id="2"]
 default_font = SubResource("1")
@@ -42,6 +55,10 @@ font_color = Color(1, 1, 1, 0.470588)
 [sub_resource type="LabelSettings" id="LabelSettings_880ur"]
 font_size = 13
 font_color = Color(1, 1, 1, 0.470588)
+
+[sub_resource type="LabelSettings" id="LabelSettings_waqfg"]
+font_size = 12
+font_color = Color(1, 1, 1, 0.415686)
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -165,9 +182,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -157.5
-offset_top = -63.0
+offset_top = -80.0
 offset_right = 157.5
-offset_bottom = -9.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -198,6 +215,14 @@ layout_mode = 2
 layout_mode = 2
 text = "Base Assets by Floombo "
 label_settings = SubResource("LabelSettings_880ur")
+
+[node name="Version" type="Label" parent="MainPanel/HSplitContainer/BasicControls/Copyright"]
+layout_mode = 2
+text = "v1.0.0
+"
+label_settings = SubResource("LabelSettings_waqfg")
+horizontal_alignment = 1
+script = ExtResource("2_1ur2s")
 
 [connection signal="toggled" from="MainPanel/HSplitContainer/BasicControls/VBoxContainer/CheckButton2" to="." method="SoundsCheck"]
 [connection signal="toggled" from="MainPanel/HSplitContainer/BasicControls/VBoxContainer/CheckButton" to="." method="SnappingCheck"]

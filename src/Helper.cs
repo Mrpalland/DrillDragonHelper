@@ -15,6 +15,7 @@ public partial class Helper : Node
     private string currentState = "idleState";
     private string currentActionName = "Idle";
     private float stateStartTime;
+    private string soundPathReactions = "res://assets/sounds/reactions/";
     private string soundPathRandom = "res://assets/sounds/random";
     private List<string> randomSounds = new List<string>();
     private double clock;
@@ -57,7 +58,7 @@ public partial class Helper : Node
         PlayAnimation("Idle", 0.25f);
     }
 
-    private void Transition(string newState)
+    public void Transition(string newState)
     {
         currentState = newState;
         stateStartTime = (float)clock;
@@ -87,7 +88,7 @@ public partial class Helper : Node
         }
     }
 
-    private void PlayRandomSound()
+    public void PlayRandomSound()
     {
         if (randomSounds.Count > 0)
         {
@@ -99,6 +100,10 @@ public partial class Helper : Node
         {
             GD.PrintErr("No random sounds found!");
         }
+    }
+
+    public void PlaySadSound(){
+        PlaySound(soundPathReactions + "Drilly_Sad.mp3");
     }
 
     private void GetRandomSounds()
@@ -116,17 +121,6 @@ public partial class Helper : Node
                     randomSounds.Add(soundPathRandom + "/" + file);
                 }
 		}
-    }
-
-    private Dictionary<string, State> CreateStates()
-    {
-        return new Dictionary<string, State>
-        {
-            { "idleState", new State { duration = 120f, OnEnter = () => PlayAnimation("Idle", 0.25f), NextState = () => new Random().NextDouble() < 0.15 ? "idleState" : "talkState" } },
-            { "talkState", new State { duration = 1f, OnEnter = () => { PlayAnimation("Talk"); PlayRandomSound(); }, NextState = () => "idleState" } },
-            { "danceState", new State { duration = 3f, OnEnter = () => PlayAnimation("Dance"), NextState = () => "idleState" } },
-            { "shiftyState", new State { duration = 1f, OnEnter = () => PlayAnimation("Shifty"), NextState = () => "idleState" } }
-        };
     }
 
     public override void _Input(InputEvent @event)
@@ -147,4 +141,71 @@ public partial class Helper : Node
         public Action OnEnter;
         public Func<string> NextState;
     }
+
+private Dictionary<string, State> CreateStates()
+{
+    return new Dictionary<string, State>
+    {
+        {
+            "idleState", new State
+            {
+                duration = 120f,
+                OnEnter = () =>
+                {
+                    PlayAnimation("Idle", 0.25f);
+                },
+                NextState = () =>
+                {
+                    return new Random().NextDouble() < 0.15 ? "idleState" : "talkState";
+                }
+            }
+        },
+        {
+            "talkState", new State
+            {
+                duration = 1f,
+                OnEnter = () =>
+                {
+                    PlayAnimation("Talk");
+                    PlayRandomSound();
+                },
+                NextState = () => "idleState"
+            }
+        },
+        {
+            "danceState", new State
+            {
+                duration = 3f,
+                OnEnter = () =>
+                {
+                    PlayAnimation("Dance");
+                },
+                NextState = () => "idleState"
+            }
+        },
+        {
+            "shiftyState", new State
+            {
+                duration = 1f,
+                OnEnter = () =>
+                {
+                    PlayAnimation("Shifty");
+                },
+                NextState = () => "idleState"
+            }
+        },
+        {
+            "sadState", new State
+            {
+                duration = 1f,
+                OnEnter = () =>
+                {
+                    PlayAnimation("Sad");
+                    PlaySadSound();
+                },
+                NextState = () => "idleState"
+            }
+        }
+    };
+}
 }

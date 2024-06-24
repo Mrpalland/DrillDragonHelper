@@ -15,7 +15,14 @@ public partial class OptionsMenu : Control
     }
 
 	public void SoundsCheck(bool sounds){
+		if(!sounds)
+			Helper.Instance.PlaySadSound();
+
 		Helper.Instance.mute = !sounds;
+
+		string state = sounds ? "danceState" : "sadState";
+		Helper.Instance.Transition(state);
+		Helper.Instance.PlayRandomSound();
 	}
 
 	public void SnappingCheck(bool snapping){

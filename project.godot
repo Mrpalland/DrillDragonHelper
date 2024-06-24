@@ -12,7 +12,7 @@ config_version=5
 
 config/name="DrillDragonHelper"
 config/description="Drilly from the game Garn47 by Floombo. Recreated fro desktop by Evan Nave."
-config/version="2.0.0"
+config/version="2.0.2"
 run/main_scene="res://src/scene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0.156108, 0.214497, 0.0395098, 1)
