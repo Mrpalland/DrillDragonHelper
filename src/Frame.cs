@@ -1,12 +1,14 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Frame : Control
 {
 
 	public static bool isMoving = false;
-
 	public static bool overFrame = false;
+	public static bool canMove = true;
+
 	private Vector2 clickPos = Vector2.Zero;
 	private Vector2 mousePos => GetGlobalMousePosition() / GetWindow().ContentScaleSize;
 	private Window optionsWindow;
@@ -31,12 +33,9 @@ public partial class Frame : Control
 			ShowOptions();
 		}
 
-		if(Input.IsActionPressed("click") && isMoving){
+		if(Input.IsActionPressed("click") && isMoving && canMove){
 			Vector2 newPos = DisplayServer.WindowGetPosition() + ((mousePos - clickPos) * GetWindow().Size);
 			DisplayServer.WindowSetPosition(new Vector2I((int)newPos.X, (int)newPos.Y));
-
-			//float helperScale = MainWindowController.Instance.normalizedWindowPosition.X > 0.5 ? -1 : 1; 
-			//Helper.Instance.parent.Scale = new Vector3(helperScale,1,1);
 		}
 
 		if(Input.IsActionJustReleased("click")){
@@ -50,9 +49,25 @@ public partial class Frame : Control
 	private void ShowOptions(){
 		if(optionsWindow != null){
 			optionsWindow.Visible = !optionsWindow.Visible;
+			SetMovable(!optionsWindow.Visible);
 		} else {
 			GD.Print("Couldn't find Options Window");
 		}
+	}
+
+	private void SetMovable(bool moveable){
+		canMove = moveable;
+
+		List<Button> buttonList = new List<Button>();
+
+        foreach (Node child in GetChildren())
+        {
+            if (child is Button button)
+            {
+                buttonList.Add(button);
+				button.MouseDefaultCursorShape = moveable ? CursorShape.Drag : CursorShape.Forbidden;
+            }
+        }
 	}
 
     public void _MouseEnter()

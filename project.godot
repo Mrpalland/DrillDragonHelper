@@ -12,7 +12,7 @@ config_version=5
 
 config/name="DrillDragonHelper"
 config/description="Drilly from the game Garn47 by Floombo. Recreated fro desktop by Evan Nave."
-config/version="2.0.4"
+config/version="2.0.5"
 run/main_scene="res://src/scene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 run/max_fps=40
@@ -24,10 +24,6 @@ boot_splash/use_filter=false
 config/icon="res://assets/icons/icon.png"
 config/windows_native_icon="res://assets/icons/Drilly.ico"
 boot_splash/minimum_display_time=1000
-
-[autoload]
-
-Frame="res://src/Frame.cs"
 
 [display]
 
