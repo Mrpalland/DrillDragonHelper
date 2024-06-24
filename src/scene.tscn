@@ -121,7 +121,7 @@ skeleton = NodePath("../../..")
 [node name="Helper" type="Node3D" parent="."]
 
 [node name="Drilly" parent="Helper" instance=ExtResource("3_on7tl")]
-transform = Transform3D(0.487654, 0.00199224, -0.873035, 0.0225339, 0.999636, 0.014868, 0.872746, -0.0269234, 0.487431, -0.337605, 0, 0)
+transform = Transform3D(0.487654, 0.00199227, -0.873035, 0.0225339, 0.999636, 0.014868, 0.872746, -0.0269233, 0.487431, -0.337605, 0, 0)
 script = ExtResource("6_pj6s4")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Helper/Drilly"]
@@ -132,6 +132,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[connection signal="visibility_changed" from="Frame/OptionsWindow" to="Frame/OptionsWindow" method="VisibilityChanged"]
 [connection signal="mouse_entered" from="Frame/Button" to="Frame" method="_MouseEnter"]
 [connection signal="mouse_exited" from="Frame/Button" to="Frame" method="_MouseExit"]
 [connection signal="mouse_entered" from="Frame/Button2" to="Frame" method="_MouseEnter"]

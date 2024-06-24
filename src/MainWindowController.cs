@@ -21,7 +21,7 @@ public partial class MainWindowController : Node
 	
 	private Vector2I availableScreen =>  DisplayServer.ScreenGetUsableRect(currentScreen).Abs().Size;
 
-	public Vector2 normalizedWindowPosition => (GetWindow().Position - DisplayServer.ScreenGetPosition(0))/availableScreen;
+	public Vector2 normalizedWindowPosition => (GetWindow().Position - DisplayServer.ScreenGetPosition(currentScreen))/availableScreen;
 	public override void _Ready()
 	{
 		if(Instance == null){

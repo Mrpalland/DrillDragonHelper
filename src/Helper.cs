@@ -19,6 +19,7 @@ public partial class Helper : Node
     private string soundPathRandom = "res://assets/sounds/random";
     private List<string> randomSounds = new List<string>();
     private double clock;
+    public Node3D parent => GetParent<Node3D>();
 
     public bool mute = false;
 
@@ -204,6 +205,17 @@ private Dictionary<string, State> CreateStates()
                 {
                     PlayAnimation("Sad");
                     PlaySadSound();
+                },
+                NextState = () => "idleState"
+            }
+        },
+        {
+            "reliefState", new State
+            {
+                duration = 0.5f,
+                OnEnter = () =>
+                {
+                    PlayAnimation("Relief");
                 },
                 NextState = () => "idleState"
             }

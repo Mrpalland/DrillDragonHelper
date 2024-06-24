@@ -14,7 +14,10 @@ public partial class Frame : Control
     public override void _Ready()
     {
 		optionsWindow = (Window)FindChild("OptionsWindow");
-		optionsWindow.Visible = false;
+
+		if(optionsWindow != null){
+			optionsWindow.Visible = false;
+		}
     }
 
     public override void _Process(double delta)
@@ -31,6 +34,9 @@ public partial class Frame : Control
 		if(Input.IsActionPressed("click") && isMoving){
 			Vector2 newPos = DisplayServer.WindowGetPosition() + ((mousePos - clickPos) * GetWindow().Size);
 			DisplayServer.WindowSetPosition(new Vector2I((int)newPos.X, (int)newPos.Y));
+
+			//float helperScale = MainWindowController.Instance.normalizedWindowPosition.X > 0.5 ? -1 : 1; 
+			//Helper.Instance.parent.Scale = new Vector3(helperScale,1,1);
 		}
 
 		if(Input.IsActionJustReleased("click")){
@@ -46,12 +52,6 @@ public partial class Frame : Control
 			optionsWindow.Visible = !optionsWindow.Visible;
 		} else {
 			GD.Print("Couldn't find Options Window");
-		}
-
-		if(optionsWindow.Visible){
-			Helper.Instance.Transition("scaredState");
-		} else {
-			Helper.Instance.Transition("idleState");
 		}
 	}
 

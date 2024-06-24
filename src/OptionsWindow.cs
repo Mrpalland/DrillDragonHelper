@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class OptionsWindow : Window
 {
@@ -8,9 +9,15 @@ public partial class OptionsWindow : Window
 		GetWindow().CloseRequested += OnClose;
 	}
 
-	public override void _Process(double delta)
-	{
-		
+	public void VisibilityChanged(){
+		if(Helper.Instance == null)
+			return;
+
+		if(Visible){
+			Helper.Instance.Transition("scaredState");
+		} else {
+			Helper.Instance.Transition("reliefState");
+		}
 	}
 	
 	private void OnClose(){
