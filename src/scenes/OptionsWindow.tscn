@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://sl2b2igghvvc"]
 
-[ext_resource type="Script" path="res://src/OptionsWindow.cs" id="1_jln7e"]
-[ext_resource type="PackedScene" uid="uid://dsxpf2in20rhc" path="res://src/Options.tscn" id="1_vei0l"]
+[ext_resource type="Script" path="res://src/scripts/OptionsWindow.cs" id="1_jln7e"]
+[ext_resource type="PackedScene" uid="uid://dsxpf2in20rhc" path="res://src/scenes/Options.tscn" id="1_vei0l"]
 
 [node name="OptionsWindow" type="Window"]
 title = "Drill Dragon Options"

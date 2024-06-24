@@ -1,13 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://hgprayrcndb"]
+[gd_scene load_steps=11 format=3 uid="uid://hgprayrcndb"]
 
-[ext_resource type="Script" path="res://src/setup.gd" id="1_mhcd0"]
-[ext_resource type="Script" path="res://src/Frame.cs" id="2_gj3i5"]
-[ext_resource type="Script" path="res://src/MainWindowController.cs" id="2_i5r5c"]
-[ext_resource type="PackedScene" uid="uid://d0od5lkrjocbg" path="res://src/drilly.tscn" id="3_on7tl"]
-[ext_resource type="Script" path="res://src/CameraRig.cs" id="4_sp600"]
-[ext_resource type="Texture2D" uid="uid://cavvt617l57ue" path="res://assets/frame.svg" id="4_vpget"]
-[ext_resource type="Script" path="res://src/Helper.cs" id="6_pj6s4"]
-[ext_resource type="PackedScene" uid="uid://sl2b2igghvvc" path="res://src/OptionsWindow.tscn" id="7_rg8rb"]
+[ext_resource type="Script" path="res://src/scripts/MainWindowController.cs" id="2_gpc87"]
+[ext_resource type="Script" path="res://src/scripts/Frame.cs" id="3_lcoea"]
+[ext_resource type="PackedScene" uid="uid://sl2b2igghvvc" path="res://src/scenes/OptionsWindow.tscn" id="4_nsl8a"]
+[ext_resource type="Texture2D" uid="uid://cavvt617l57ue" path="res://assets/frame.svg" id="5_na8wy"]
+[ext_resource type="Script" path="res://src/scripts/CameraRig.cs" id="6_bagcr"]
+[ext_resource type="PackedScene" uid="uid://d0od5lkrjocbg" path="res://src/scenes/Drilly.tscn" id="7_5m6q3"]
+[ext_resource type="Script" path="res://src/scripts/Helper.cs" id="8_8jmj8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yntbc"]
 
@@ -19,10 +18,9 @@ albedo_color = Color(0.324581, 0.409597, 0.0911763, 0.8)
 [sub_resource type="BoxMesh" id="BoxMesh_ee36b"]
 
 [node name="Scene" type="Node3D"]
-script = ExtResource("1_mhcd0")
 
-[node name="WindowController" type="Node" parent="."]
-script = ExtResource("2_i5r5c")
+[node name="MainWindowController" type="Node" parent="."]
+script = ExtResource("2_gpc87")
 
 [node name="Frame" type="Control" parent="."]
 layout_mode = 3
@@ -32,12 +30,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-script = ExtResource("2_gj3i5")
+script = ExtResource("3_lcoea")
 
-[node name="OptionsWindow" parent="Frame" instance=ExtResource("7_rg8rb")]
+[node name="OptionsWindow" parent="Frame" instance=ExtResource("4_nsl8a")]
 content_scale_mode = 0
 
-[node name="TextureRect" type="TextureRect" parent="Frame"]
+[node name="FrameImage" type="TextureRect" parent="Frame"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,49 +43,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("4_vpget")
+texture = ExtResource("5_na8wy")
 expand_mode = 2
 
-[node name="Button" type="Button" parent="Frame"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 932.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_default_cursor_shape = 13
-theme_override_styles/focus = SubResource("StyleBoxEmpty_yntbc")
-flat = true
-metadata/_edit_group_ = true
-
-[node name="Button2" type="Button" parent="Frame"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 936.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_default_cursor_shape = 13
-theme_override_styles/focus = SubResource("StyleBoxEmpty_yntbc")
-flat = true
-metadata/_edit_group_ = true
-
-[node name="Button3" type="Button" parent="Frame"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -933.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_default_cursor_shape = 13
-theme_override_styles/focus = SubResource("StyleBoxEmpty_yntbc")
-flat = true
-metadata/_edit_group_ = true
-
-[node name="Button4" type="Button" parent="Frame"]
+[node name="Frame_Top" type="Button" parent="Frame"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -100,9 +59,48 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_yntbc")
 flat = true
 metadata/_edit_group_ = true
 
+[node name="Frame_Bot" type="Button" parent="Frame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 936.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 13
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yntbc")
+flat = true
+metadata/_edit_group_ = true
+
+[node name="Frame_Right" type="Button" parent="Frame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 932.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 13
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yntbc")
+flat = true
+metadata/_edit_group_ = true
+
+[node name="Frame_Left" type="Button" parent="Frame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -933.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 13
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yntbc")
+flat = true
+metadata/_edit_group_ = true
+
 [node name="CameraRig" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0401058, 1.22088, 0.708449)
-script = ExtResource("4_sp600")
+script = ExtResource("6_bagcr")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00586414, 0.14315, 11.4874)
@@ -112,7 +110,7 @@ fov = 10.0
 size = 2.8
 far = 200.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraRig/Camera3D"]
+[node name="Backdrop" type="MeshInstance3D" parent="CameraRig/Camera3D"]
 transform = Transform3D(4.95591, 0, 0, 0, 5.25579, 0, 0, 0, 0.350926, 0, -0.605, -15.3652)
 material_override = SubResource("StandardMaterial3D_482by")
 mesh = SubResource("BoxMesh_ee36b")
@@ -120,24 +118,18 @@ skeleton = NodePath("../../..")
 
 [node name="Helper" type="Node3D" parent="."]
 
-[node name="Drilly" parent="Helper" instance=ExtResource("3_on7tl")]
+[node name="Drilly" parent="Helper" instance=ExtResource("7_5m6q3")]
 transform = Transform3D(0.487654, 0.00199227, -0.873035, 0.0225339, 0.999636, 0.014868, 0.872746, -0.0269233, 0.487431, -0.337605, 0, 0)
-script = ExtResource("6_pj6s4")
+script = ExtResource("8_8jmj8")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Helper/Drilly"]
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [connection signal="visibility_changed" from="Frame/OptionsWindow" to="Frame/OptionsWindow" method="VisibilityChanged"]
-[connection signal="mouse_entered" from="Frame/Button" to="Frame" method="_MouseEnter"]
-[connection signal="mouse_exited" from="Frame/Button" to="Frame" method="_MouseExit"]
-[connection signal="mouse_entered" from="Frame/Button2" to="Frame" method="_MouseEnter"]
-[connection signal="mouse_exited" from="Frame/Button2" to="Frame" method="_MouseExit"]
-[connection signal="mouse_entered" from="Frame/Button3" to="Frame" method="_MouseEnter"]
-[connection signal="mouse_exited" from="Frame/Button3" to="Frame" method="_MouseExit"]
-[connection signal="mouse_entered" from="Frame/Button4" to="Frame" method="_MouseEnter"]
-[connection signal="mouse_exited" from="Frame/Button4" to="Frame" method="_MouseExit"]
+[connection signal="mouse_entered" from="Frame/Frame_Top" to="Frame" method="_MouseEnter"]
+[connection signal="mouse_exited" from="Frame/Frame_Top" to="Frame" method="_MouseExit"]
+[connection signal="mouse_entered" from="Frame/Frame_Bot" to="Frame" method="_MouseEnter"]
+[connection signal="mouse_exited" from="Frame/Frame_Bot" to="Frame" method="_MouseExit"]
+[connection signal="mouse_entered" from="Frame/Frame_Right" to="Frame" method="_MouseEnter"]
+[connection signal="mouse_exited" from="Frame/Frame_Right" to="Frame" method="_MouseExit"]
+[connection signal="mouse_entered" from="Frame/Frame_Left" to="Frame" method="_MouseEnter"]
+[connection signal="mouse_exited" from="Frame/Frame_Left" to="Frame" method="_MouseExit"]

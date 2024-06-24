@@ -1,19 +1,7 @@
 using Godot;
-using System;
 
 public partial class OptionsMenu : Control
 {
-
-	public override void _Ready()
-    {
-
-    }
-
-    public override void _Process(double delta)
-    {
-
-    }
-
 	public void SoundsCheck(bool sounds){
 		if(!sounds)
 			Helper.Instance.PlaySadSound();
@@ -44,14 +32,14 @@ public partial class OptionsMenu : Control
 				MainWindowController.Instance.ResizeWindow(0.45f);
 			break;
 			case 4:
-
+				// Blank for custom size settings later
 			break;
 		}
 	}
 
 	public void ResetWindow(){
 		MainWindowController.Instance.ResizeWindow(0.167f);
-		MainWindowController.Instance.SnapToCorner(MainWindowController.Corner.botLeft);
+		MainWindowController.Instance.SnapToCorner(MainWindowController.Corner.BotLeft);
 	}
 
 	public void QuitApp(){

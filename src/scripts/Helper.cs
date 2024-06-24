@@ -1,9 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection.PortableExecutable;
-using System.Runtime.InteropServices;
 
 public partial class Helper : Node
 {
@@ -85,7 +82,7 @@ public partial class Helper : Node
     {
         if (!mute)
         {
-            var audioStream = GD.Load<AudioStream>(soundPath);//ResourceLoader.Load<AudioStream>(soundPath);//
+            var audioStream = GD.Load<AudioStream>(soundPath);
             audioPlayer.Stream = audioStream;
             audioPlayer.Play();
         }

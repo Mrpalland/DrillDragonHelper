@@ -9,7 +9,8 @@ public partial class OptionsWindow : Window
 		GetWindow().CloseRequested += OnClose;
 	}
 
-	public void VisibilityChanged(){
+	public void VisibilityChanged()
+	{
 		if(Helper.Instance == null)
 			return;
 
@@ -18,9 +19,16 @@ public partial class OptionsWindow : Window
 		} else {
 			Helper.Instance.Transition("reliefState");
 		}
+
+		//Maybe cursed?
+		if(DisplayServer.GetScreenCount() > 1){
+			Frame frame = GetParent<Control>() as Frame;
+			frame.SetMovable(!Visible);
+		}
 	}
 	
-	private void OnClose(){
+	private void OnClose()
+	{
 		GetWindow().Visible = false;
 	}
 

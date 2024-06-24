@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dsxpf2in20rhc"]
 
-[ext_resource type="Script" path="res://src/OptionsMenu.cs" id="1_4qwew"]
-[ext_resource type="Script" path="res://src/version-label.gd" id="2_1ur2s"]
+[ext_resource type="Script" path="res://src/scripts/OptionsMenu.cs" id="1_r20ur"]
+[ext_resource type="Script" path="res://src/scripts/version-label.gd" id="2_xv62q"]
 
 [sub_resource type="FontFile" id="1"]
 fallbacks = Array[Font]([null])
@@ -70,7 +70,7 @@ offset_bottom = -424.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("2")
-script = ExtResource("1_4qwew")
+script = ExtResource("1_r20ur")
 
 [node name="MainPanel" type="ColorRect" parent="."]
 layout_mode = 0
@@ -222,7 +222,7 @@ text = "v1.0.0
 "
 label_settings = SubResource("LabelSettings_waqfg")
 horizontal_alignment = 1
-script = ExtResource("2_1ur2s")
+script = ExtResource("2_xv62q")
 
 [connection signal="toggled" from="MainPanel/HSplitContainer/BasicControls/VBoxContainer/CheckButton2" to="." method="SoundsCheck"]
 [connection signal="toggled" from="MainPanel/HSplitContainer/BasicControls/VBoxContainer/CheckButton" to="." method="SnappingCheck"]
