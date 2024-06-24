@@ -47,6 +47,12 @@ public partial class Frame : Control
 		} else {
 			GD.Print("Couldn't find Options Window");
 		}
+
+		if(optionsWindow.Visible){
+			Helper.Instance.Transition("scaredState");
+		} else {
+			Helper.Instance.Transition("idleState");
+		}
 	}
 
     public void _MouseEnter()

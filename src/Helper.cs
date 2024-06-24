@@ -45,7 +45,9 @@ public partial class Helper : Node
         if (states.ContainsKey(currentState))
         {
             var currentStateObj = states[currentState];
-            if (clock - stateStartTime > currentStateObj.duration)
+            if(currentStateObj.duration == -1.0f){
+                return;
+            }else if (clock - stateStartTime > currentStateObj.duration)
             {
                 Transition(currentStateObj.NextState());
             }
@@ -202,6 +204,17 @@ private Dictionary<string, State> CreateStates()
                 {
                     PlayAnimation("Sad");
                     PlaySadSound();
+                },
+                NextState = () => "idleState"
+            }
+        },
+        {
+            "scaredState", new State
+            {
+                duration = -1.0f,
+                OnEnter = () =>
+                {
+                    PlayAnimation("Scared");
                 },
                 NextState = () => "idleState"
             }
